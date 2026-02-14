@@ -95,6 +95,39 @@ nav button {
 .section { display: none; text-align: center; }
 .section.active { display: block; }
 
+.proposal {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.proposal button {
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+#yesBtn {
+    background: #ff69b4;
+    color: white;
+}
+#noBtn {
+    background: #333;
+    color: white;
+}
+#answerMessage {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #ffd6f9;
+    text-shadow: 0 0 10px #ff69b4;
+}
+#yesBtn {
+    transition: transform 0.3s ease, margin 0.3s ease;
+}
+
 .signature { margin-top: 30px; white-space: pre-line; }
 
 /* PHOTO */
@@ -215,4 +248,5 @@ nav {
 .music-controls input {
     width: 80px;
 }
+
 
