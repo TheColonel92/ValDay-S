@@ -60,6 +60,12 @@
         <p id="line2"></p>
         <p id="line3"></p>
         <p class="confession" id="line4"></p>
+        <div class="proposal">
+            <button id="yesBtn" onclick="sheSaidYes()">💖 Yes</button>
+            <button id="noBtn" onclick="sheSaidNo()">No</button>
+        </div>
+
+        <p id="answerMessage"></p>
 
         <div class="signature" id="signature"></div>
     </section>
@@ -246,7 +252,36 @@
         setTimeout(() => h.remove(), 8000);
     }, 250);
 
+    function sheSaidNo() {
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+
+        noClickCount++;
+
+        // Change text
+        if (noClickCount < noTexts.length) {
+            noBtn.innerText = noTexts[noClickCount];
+        }
+
+        // Make NO smaller
+        noBtn.style.transform = `scale(${1 - noClickCount * 0.15})`;
+
+        // Make YES bigger
+        yesBtn.style.transform = `scale(${1 + noClickCount * 0.15})`;
+    }
+
+    function sheSaidYes() {
+        const message = document.getElementById("answerMessage");
+
+        message.innerHTML = "You just made me the happiest person alive 💍❤️";
+
+        // Hide buttons
+        document.getElementById("yesBtn").style.display = "none";
+        document.getElementById("noBtn").style.display = "none";
+    }
+
 </script>
 
 </body>
 </html>
+
