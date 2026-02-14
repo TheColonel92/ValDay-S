@@ -1,287 +1,300 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-
-<div class="galaxy"></div>
-<div class="hearts"></div>
-
-<audio id="bgMusic"></audio>
-
-
-<!-- LETTER -->
-<div class="letter" id="letter">
-    <button class="open-btn" onclick="openLetter()" id="openBtn"></button>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="container hidden" id="content">
-
-    <nav>
-        <div class="nav-left">
-            <button onclick="showSection('home')" id="homeBtn"></button>
-            <button onclick="showSection('photo')" id="photoBtn"></button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>For You SANDRA❤️</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+        
+    <body>
+        
+        <div class="galaxy"></div>
+        <div class="hearts"></div>
+        
+        <audio id="bgMusic"></audio>
+        
+        
+        <!-- LETTER -->
+        <div class="letter" id="letter">
+            <button class="open-btn" onclick="openLetter()" id="openBtn"></button>
         </div>
-
-        <div class="nav-right">
-            <div class="music-controls">
-                <button onclick="prevTrack()" id="prevBtn">⏮</button>
-                <button onclick="togglePlay()" id="playBtn">▶</button>
-                <button onclick="nextTrack()" id="nextBtn">⏭</button>
-
-                <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider">
-            </div>
-
-            <div class="lang">
-                <button onclick="setLang('fr')">FR</button>
-                <button onclick="setLang('en')">EN</button>
-                <button onclick="setLang('fil')">FIL</button>
-            </div>
+        
+        <!-- MAIN CONTENT -->
+        <div class="container hidden" id="content">
+        
+            <nav>
+                <div class="nav-left">
+                    <button onclick="showSection('home')" id="homeBtn"></button>
+                    <button onclick="showSection('photo')" id="photoBtn"></button>
+                </div>
+        
+                <div class="nav-right">
+                    <div class="music-controls">
+                        <button onclick="prevTrack()" id="prevBtn">⏮</button>
+                        <button onclick="togglePlay()" id="playBtn">▶</button>
+                        <button onclick="nextTrack()" id="nextBtn">⏭</button>
+        
+                        <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider">
+                    </div>
+        
+                    <div class="lang">
+                        <button onclick="setLang('fr')">FR</button>
+                        <button onclick="setLang('en')">EN</button>
+                        <button onclick="setLang('fil')">FIL</button>
+                    </div>
+                </div>
+            </nav>
+        
+            <!-- HOME -->
+            <section id="home" class="section active">
+                <h1 class="neon" id="title"></h1>
+                <h2 id="subtitle"></h2>
+        
+                <div class="couple-photos">
+                    <!--<img src="images/leo.png" alt="Us">-->
+                    <img src="images/sands.png" alt="Us">
+                </div>
+        
+                <p id="line1"></p>
+                <p id="line2"></p>
+                <p id="line3"></p>
+                 <!-- PROPOSAL SECTION -->
+                        <p class="confession" id="line4"></p>
+                        <div class="proposal">
+                            <button id="yesBtn" onclick="sheSaidYes()">💖 Yes</button>
+                            <button id="noBtn" onclick="sheSaidNo()">No</button>
+                        </div>
+                
+                        <p id="answerMessage"></p>
+                
+                        <div class="signature" id="signature"></div>
+            </section>
+        
+            <!-- PHOTO SECTION -->
+            <section id="photo" class="section">
+                <img 
+                    src="images/IMG_20251214_070323_977.webp" 
+                    alt="Memory"
+                    style="width: 220px; max-width: 45%; height: auto; border-radius: 15px; margin: 10px;"
+                >
+                <img 
+                    src="images/Screenshot_20251214-144005~2.jpg" 
+                    alt="Memory"
+                    style="width: 220px; max-width: 45%; height: auto; border-radius: 15px; margin: 10px;"
+                >
+                <p id="photoText"></p>
+            </section>
+        
+        
         </div>
-    </nav>
+        
+        <script>
+            const messages = [
+                "💖 My love...",
+                "🌹 You make my world brighter",
+                "✨ Will you be mine?",
+                "💘 I adore you"
+            ];
+        
+            let index = 0;
+        
+            function changeTitle() {
+                document.title = messages[index];
+                index = (index + 1) % messages.length;
+            }
+        
+            setInterval(changeTitle, 2000);
+        
+            /* ========= PERSONNALISATION ========= */
+            const crushName = "SANDRA";
+            const yourName = "LEO";
+        
+            /* ========= PLAYLIST ========= */
+            const playlist = [
+                "music/SA ISANG SULYAP MO by 143.mp3",
+                "music/Ano Ba Talaga Tayo - The Juans.mp3",
+                "music/Bigay Ng Maykapal.mp3"
+            ];
+        
+            let currentTrack = 0;
+            const music = document.getElementById("bgMusic");
+            const slider = document.getElementById("volumeSlider");
+            const playBtn = document.getElementById("playBtn");
+        
+            music.volume = 0.5;
+        
+            function loadTrack(index) {
+                music.src = playlist[index];
+            }
+        
+            function playMusic() {
+                music.play().then(() => {
+                    playBtn.innerText = "⏸";
+                }).catch(err => console.log(err));
+            }
+        
+            function pauseMusic() {
+                music.pause();
+                playBtn.innerText = "▶";
+            }
+        
+            function togglePlay() {
+                if (music.paused) {
+                    playMusic();
+                } else {
+                    pauseMusic();
+                }
+            }
+        
+            function nextTrack() {
+                currentTrack = (currentTrack + 1) % playlist.length;
+                loadTrack(currentTrack);
+                playMusic();
+            }
+        
+            function prevTrack() {
+                currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+                loadTrack(currentTrack);
+                playMusic();
+            }
+        
+            music.addEventListener("ended", nextTrack);
+        
+            slider.addEventListener("input", () => {
+                music.volume = slider.value;
+            });
+        
+            /* ========= LANGUAGES ========= */
+        
+            const translations = {
+                fr: {
+                    openBtn: "Ouvrir mon cœur 💌",
+                    homeBtn: "Accueil",
+                    photoBtn: "Photo",
+                    photoText: "Un souvenir que je veux garder pour toujours 🤍",
+                    title: "Joyeuse Saint-Valentin",
+                    subtitle: crushName + " ❤️",
+                    line1: "Depuis que tu es entrée dans ma vie, tout brille différemment.",
+                    line2: "Nos moments ensemble sont devenus mes souvenirs préférés.",
+                    line3: "Ce n’est pas une promesse… juste quelque chose de sincère.",
+                    line4: "Alors aujourd’hui, je veux te poser une question importante… accepterais-tu qu’on devienne plus que des amis ? 🤍",
+                    signature: "Avec tout mon cœur,\n" + yourName
+                },
+                en: {
+                    openBtn: "Open my heart 💌",
+                    homeBtn: "Home",
+                    photoBtn: "Photo",
+                    photoText: "A memory I want to keep forever 🤍",
+                    title: "Happy Valentine's Day",
+                    subtitle: crushName + " ❤️",
+                    line1: "Since you came into my life, everything shines differently.",
+                    line2: "Our moments together became my favorite memories.",
+                    line3: "Not a promise… just something real.",
+                    line4: "So today, I want to ask you something important… would you like us to become more than just friends? 🤍",
+                    signature: "With all my heart,\n" + yourName
+                },
+                fil: {
+                    openBtn: "Buksan ang puso ko 💌",
+                    homeBtn: "Tahanan",
+                    photoBtn: "Larawan",
+                    photoText: "Isang alaala na gusto kong panghawakan habang buhay 🤍",
+                    title: "Maligayang Araw ng mga Puso",
+                    subtitle: crushName + " ❤️",
+                    line1: "Simula nang dumating ka, mas naging maliwanag ang mundo ko.",
+                    line2: "Ang mga sandali natin ang paborito kong alaala.",
+                    line3: "Hindi pangako… kundi totoo.",
+                    line4: "Kaya ngayon, may isa akong tanong… papayag ka bang maging higit pa tayo sa magkaibigan? 🤍",
+                    signature: "Buong puso,\n" + yourName
+                }
+            };
+        
+            function setLang(lang) {
+                const t = translations[lang];
+                for (let key in t) {
+                    document.getElementById(key).innerText = t[key];
+                }
+            }
+        
+            function detectLang() {
+                const l = navigator.language;
+                if (l.startsWith("fr")) return "fr";
+                if (l.startsWith("tl") || l.startsWith("fil")) return "fil";
+                return "en";
+            }
+        
+            setLang(detectLang());
+        
+            /* ========= LETTER OPEN ========= */
+        
+            function openLetter() {
+                document.getElementById("letter").classList.add("open");
+                document.getElementById("content").classList.remove("hidden");
+        
+                loadTrack(currentTrack);
+                playMusic();
+            }
+        
+            /* ========= SECTION SWITCH ========= */
+        
+            function showSection(id) {
+                document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+                document.getElementById(id).classList.add("active");
+            }
+        
+            /* ========= HEART RAIN ========= */
+        
+            setInterval(() => {
+                const h = document.createElement("div");
+                h.className = "heart";
+                h.style.left = Math.random() * 100 + "vw";
+                h.style.animationDuration = 3 + Math.random() * 5 + "s";
+                document.querySelector(".hearts").appendChild(h);
+                setTimeout(() => h.remove(), 8000);
+            }, 250);
 
-    <!-- HOME -->
-    <section id="home" class="section active">
-        <h1 class="neon" id="title"></h1>
-        <h2 id="subtitle"></h2>
+            let noClickCount = 0;
+        
+            const noTexts = [
+                "No",
+                "Are you sure?",
+                "Think again...",
+                "Really sure? 🥺",
+                "Don't break my heart...",
+                "Last chance... 💔"
+            ];
+        
+            function sheSaidNo() {
+                const yesBtn = document.getElementById("yesBtn");
+                const noBtn = document.getElementById("noBtn");
+        
+                noClickCount++;
+        
+                // Change text
+                if (noClickCount < noTexts.length) {
+                    noBtn.innerText = noTexts[noClickCount];
+                }
+                // Make NO smaller
+                const noScale = Math.max(0.3, 1 - noClickCount * 0.15);
+                // Make YES bigger
+                const yesScale = 1 + noClickCount * 0.15;
+                
+                yesBtn.style.transform = "scale(" + yesScale + ")";
+                noBtn.style.transform = "scale(" + noScale + ")";
+            }
+        
+            function sheSaidYes() {
+                const message = document.getElementById("answerMessage");
+        
+                message.innerHTML = "You just made me the happiest person alive 💍❤️";
+        
+                // Hide buttons
+                document.getElementById("yesBtn").style.display = "none";
+                document.getElementById("noBtn").style.display = "none";
+            }
 
-        <div class="couple-photos">
-            <!--<img src="images/leo.png" alt="Us">-->
-            <img src="images/sands.png" alt="Us">
-        </div>
-
-        <p id="line1"></p>
-        <p id="line2"></p>
-        <p id="line3"></p>
-        <p class="confession" id="line4"></p>
-        <div class="proposal">
-            <button id="yesBtn" onclick="sheSaidYes()">💖 Yes</button>
-            <button id="noBtn" onclick="sheSaidNo()">No</button>
-        </div>
-
-        <p id="answerMessage"></p>
-
-        <div class="signature" id="signature"></div>
-    </section>
-
-    <!-- PHOTO SECTION -->
-    <section id="photo" class="section">
-        <img 
-            src="images/IMG_20251214_070323_977.webp" 
-            alt="Memory"
-            style="width: 220px; max-width: 45%; height: auto; border-radius: 15px; margin: 10px;"
-        >
-        <img 
-            src="images/Screenshot_20251214-144005~2.jpg" 
-            alt="Memory"
-            style="width: 220px; max-width: 45%; height: auto; border-radius: 15px; margin: 10px;"
-        >
-        <p id="photoText"></p>
-    </section>
-
-
-</div>
-
-<script>
-    const messages = [
-        "💖 My love...",
-        "🌹 You make my world brighter",
-        "✨ Will you be mine?",
-        "💘 I adore you"
-    ];
-
-    let index = 0;
-
-    function changeTitle() {
-        document.title = messages[index];
-        index = (index + 1) % messages.length;
-    }
-
-    setInterval(changeTitle, 2000);
-
-    /* ========= PERSONNALISATION ========= */
-    const crushName = "SANDRA";
-    const yourName = "LEO";
-
-    /* ========= PLAYLIST ========= */
-    const playlist = [
-        "music/SA ISANG SULYAP MO by 143.mp3",
-        "music/Ano Ba Talaga Tayo - The Juans.mp3",
-        "music/Bigay Ng Maykapal.mp3"
-    ];
-
-    let currentTrack = 0;
-    const music = document.getElementById("bgMusic");
-    const slider = document.getElementById("volumeSlider");
-    const playBtn = document.getElementById("playBtn");
-
-    music.volume = 0.5;
-
-    function loadTrack(index) {
-        music.src = playlist[index];
-    }
-
-    function playMusic() {
-        music.play().then(() => {
-            playBtn.innerText = "⏸";
-        }).catch(err => console.log(err));
-    }
-
-    function pauseMusic() {
-        music.pause();
-        playBtn.innerText = "▶";
-    }
-
-    function togglePlay() {
-        if (music.paused) {
-            playMusic();
-        } else {
-            pauseMusic();
-        }
-    }
-
-    function nextTrack() {
-        currentTrack = (currentTrack + 1) % playlist.length;
-        loadTrack(currentTrack);
-        playMusic();
-    }
-
-    function prevTrack() {
-        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-        loadTrack(currentTrack);
-        playMusic();
-    }
-
-    music.addEventListener("ended", nextTrack);
-
-    slider.addEventListener("input", () => {
-        music.volume = slider.value;
-    });
-
-    /* ========= LANGUAGES ========= */
-
-    const translations = {
-        fr: {
-            openBtn: "Ouvrir mon cœur 💌",
-            homeBtn: "Accueil",
-            photoBtn: "Photo",
-            photoText: "Un souvenir que je veux garder pour toujours 🤍",
-            title: "Joyeuse Saint-Valentin",
-            subtitle: crushName + " ❤️",
-            line1: "Depuis que tu es entrée dans ma vie, tout brille différemment.",
-            line2: "Nos moments ensemble sont devenus mes souvenirs préférés.",
-            line3: "Ce n’est pas une promesse… juste quelque chose de sincère.",
-            line4: "Alors aujourd’hui, je veux te poser une question importante… accepterais-tu qu’on devienne plus que des amis ? 🤍",
-            signature: "Avec tout mon cœur,\n" + yourName
-        },
-        en: {
-            openBtn: "Open my heart 💌",
-            homeBtn: "Home",
-            photoBtn: "Photo",
-            photoText: "A memory I want to keep forever 🤍",
-            title: "Happy Valentine's Day",
-            subtitle: crushName + " ❤️",
-            line1: "Since you came into my life, everything shines differently.",
-            line2: "Our moments together became my favorite memories.",
-            line3: "Not a promise… just something real.",
-            line4: "So today, I want to ask you something important… would you like us to become more than just friends? 🤍",
-            signature: "With all my heart,\n" + yourName
-        },
-        fil: {
-            openBtn: "Buksan ang puso ko 💌",
-            homeBtn: "Tahanan",
-            photoBtn: "Larawan",
-            photoText: "Isang alaala na gusto kong panghawakan habang buhay 🤍",
-            title: "Maligayang Araw ng mga Puso",
-            subtitle: crushName + " ❤️",
-            line1: "Simula nang dumating ka, mas naging maliwanag ang mundo ko.",
-            line2: "Ang mga sandali natin ang paborito kong alaala.",
-            line3: "Hindi pangako… kundi totoo.",
-            line4: "Kaya ngayon, may isa akong tanong… papayag ka bang maging higit pa tayo sa magkaibigan? 🤍",
-            signature: "Buong puso,\n" + yourName
-        }
-    };
-
-    function setLang(lang) {
-        const t = translations[lang];
-        for (let key in t) {
-            document.getElementById(key).innerText = t[key];
-        }
-    }
-
-    function detectLang() {
-        const l = navigator.language;
-        if (l.startsWith("fr")) return "fr";
-        if (l.startsWith("tl") || l.startsWith("fil")) return "fil";
-        return "en";
-    }
-
-    setLang(detectLang());
-
-    /* ========= LETTER OPEN ========= */
-
-    function openLetter() {
-        document.getElementById("letter").classList.add("open");
-        document.getElementById("content").classList.remove("hidden");
-
-        loadTrack(currentTrack);
-        playMusic();
-    }
-
-    /* ========= SECTION SWITCH ========= */
-
-    function showSection(id) {
-        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-        document.getElementById(id).classList.add("active");
-    }
-
-    /* ========= HEART RAIN ========= */
-
-    setInterval(() => {
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.style.left = Math.random() * 100 + "vw";
-        h.style.animationDuration = 3 + Math.random() * 5 + "s";
-        document.querySelector(".hearts").appendChild(h);
-        setTimeout(() => h.remove(), 8000);
-    }, 250);
-
-    function sheSaidNo() {
-        const noBtn = document.getElementById("noBtn");
-        const yesBtn = document.getElementById("yesBtn");
-
-        noClickCount++;
-
-        // Change text
-        if (noClickCount < noTexts.length) {
-            noBtn.innerText = noTexts[noClickCount];
-        }
-
-        // Make NO smaller
-        noBtn.style.transform = `scale(${1 - noClickCount * 0.15})`;
-
-        // Make YES bigger
-        yesBtn.style.transform = `scale(${1 + noClickCount * 0.15})`;
-    }
-
-    function sheSaidYes() {
-        const message = document.getElementById("answerMessage");
-
-        message.innerHTML = "You just made me the happiest person alive 💍❤️";
-
-        // Hide buttons
-        document.getElementById("yesBtn").style.display = "none";
-        document.getElementById("noBtn").style.display = "none";
-    }
-
-</script>
-
-</body>
+        </script>
+    </body>
 </html>
+
 
