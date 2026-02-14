@@ -1,9 +1,14 @@
 * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
+html, body {
+    min-height: 100%;
+}
+
 body {
     margin: 0;
     background: black;
-    overflow: hidden;
+    overflow-x: hidden;   /* bloque uniquement le scroll horizontal */
+    overflow-y: auto;     /* autorise le scroll vertical */
     color: white;
 }
 
@@ -210,3 +215,4 @@ nav {
 .music-controls input {
     width: 80px;
 }
+
