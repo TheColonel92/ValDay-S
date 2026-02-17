@@ -3,26 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="images/TheColonel-Valentin-logo.png">
         <title>For You SANDRA❤️</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
         
     <body>
-        
         <div class="galaxy"></div>
         <div class="hearts"></div>
-        
         <audio id="bgMusic"></audio>
-        
-        
         <!-- LETTER -->
         <div class="letter" id="letter">
             <button class="open-btn" onclick="openLetter()" id="openBtn"></button>
         </div>
-        
         <!-- MAIN CONTENT -->
         <div class="container hidden" id="content">
-        
             <nav>
                 <div class="nav-left">
                     <button onclick="showSection('home')" id="homeBtn"></button>
@@ -34,10 +29,8 @@
                         <button onclick="prevTrack()" id="prevBtn">⏮</button>
                         <button onclick="togglePlay()" id="playBtn">▶</button>
                         <button onclick="nextTrack()" id="nextBtn">⏭</button>
-        
                         <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider">
                     </div>
-        
                     <div class="lang">
                         <button onclick="setLang('fr')">FR</button>
                         <button onclick="setLang('en')">EN</button>
@@ -45,17 +38,14 @@
                     </div>
                 </div>
             </nav>
-        
             <!-- HOME -->
             <section id="home" class="section active">
                 <h1 class="neon" id="title"></h1>
                 <h2 id="subtitle"></h2>
-        
                 <div class="couple-photos">
                     <!--<img src="images/leo.png" alt="Us">-->
                     <img src="images/sands.png" alt="Us">
                 </div>
-        
                 <p id="line1"></p>
                 <p id="line2"></p>
                 <p id="line3"></p>
@@ -304,6 +294,7 @@
         </script>
     </body>
 </html>
+
 
 
 
